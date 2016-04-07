@@ -36,25 +36,24 @@ public class TreeDriver {
 
     public static void main(String[] args) throws Exception {
         // read data file
-//        Instances data = loadData("cancer_test.txt");
-//        Instances testData = loadData("cancer_train.txt");
-        Instances data = loadData("cancer_test.txt");
-        Instances testData = loadData("cancer_train.txt");
+
+        Instances testData = loadData("cancer_test.txt");
+        Instances trainData = loadData("cancer_train.txt");
         // todo : build tree
-        DecisionTree ourTree = new DecisionTree(data);
+        DecisionTree ourTree = new DecisionTree(trainData);
 
         //build the tree
-        ourTree.buildClassifier(data);
+        ourTree.buildClassifier(trainData);
 
-        double avgError = ourTree.calcAvgError(data);
+        double avgError = ourTree.calcAvgError(trainData);
         double avgTestError = ourTree.calcAvgError(testData);
 
         //build tree and prune it.
-        ourTree = new DecisionTree(data);
+        ourTree = new DecisionTree(trainData);
         ourTree.setPruningMode(true);
-        ourTree.buildClassifier(data);
+        ourTree.buildClassifier(trainData);
 
-        double avgTrainErrorPruning = ourTree.calcAvgError(testData);
+        double avgTrainErrorPruning = ourTree.calcAvgError(trainData);
         double avgTestErrorPruning = ourTree.calcAvgError(testData);
 
 //		Run your code:

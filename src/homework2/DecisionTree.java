@@ -148,17 +148,14 @@ public class DecisionTree extends Classifier {
         int maxIGattIndex = 0;
         double curMaxIG = 0;
 
-        // // TODO: 06/04/2016 - check this code - it is the weakeset link!!!
         //check which attribute produces the maximal information gain (as shown in class)
         //by calculating the measure for attribute as the splitting attribute.
         for (int i = 0; i < attributeList.size(); i++) {
-//            System.out.println(Arrays.toString(informationGain));
-//            System.out.println("checking attribute for max gain");
-//            System.out.println(attributeList.get(i));
+
             informationGain[attributeList.get(i)] = calcInfoGain(trainingData, attributeList.get(i));
 
             if (informationGain[attributeList.get(i)] > curMaxIG) {
-                curMaxIG = informationGain[attributeList.get(i)]; //todo: check this out !!!
+                curMaxIG = informationGain[attributeList.get(i)];
                 maxIGattIndex = attributeList.get(i);
 //                System.out.println("the current max gain attribute is: " + maxIGattIndex +" "+attributeList.get(i));
             }
