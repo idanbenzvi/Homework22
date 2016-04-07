@@ -157,7 +157,6 @@ public class DecisionTree extends Classifier {
             if (informationGain[attributeList.get(i)] > curMaxIG) {
                 curMaxIG = informationGain[attributeList.get(i)];
                 maxIGattIndex = attributeList.get(i);
-//                System.out.println("the current max gain attribute is: " + maxIGattIndex +" "+attributeList.get(i));
             }
         }
 
@@ -321,8 +320,6 @@ Note: using a log base e will work but you should use log base 2.
             //compare the classifier result with true instance class value
             int classValue = (int) curInst.classValue();
 
-//            counter++;
-//            System.out.println(counter);
             if(classValue!=(int)classifyResult)
                 errors++;
         }
@@ -342,9 +339,6 @@ Note: using a log base e will work but you should use log base 2.
 
         Node currNode = m_rootNode;
         boolean noMatch = true;
-
-        if(instance.toString().equals("40-49,ge40,40-44,15-17,yes,2,right,left_up,yes,no-recurrence-events"))
-            System.out.println("wow");
 
         //repeat until reaching a leaf node (representing a a class value choice according to the tree's structure)
         while ((int)currNode.getReturnValue() == -1) {
@@ -475,8 +469,8 @@ Note: using a log base e will work but you should use log base 2.
         int py1=0; // instances count of y being 1
         int pf =0; // instances of Df=f value, and y=1
         int nf =0 ; // instances of Df=f value, and y=0
-        int E0=0 ;
-        int E1=0 ;
+        double E0=0 ;
+        double E1=0 ;
         double chiSq =0;
 
         //count py0 and py1 for the E0 and E1 calculation, respectively
@@ -499,11 +493,11 @@ Note: using a log base e will work but you should use log base 2.
             }
 
             //calculate E0 & E1
-            E0 = instances[f].numInstances() * py0;
-            E1 = instances[f].numInstances() * py1;
+            E0 = instances[f].numInstances() * (double) py0 / (double) subsetInstances.numInstances();
+            E1 = instances[f].numInstances() * (double) py1 / (double) subsetInstances.numInstances();
 
             //add to the chi sq. sum
-            chiSq += (double) Math.pow((E0 - pf),2) / (double) pf + (double) Math.pow((E1 - nf),2) / (double) nf ;
+            chiSq += Math.pow((E0 - pf),2) / (double) pf + (double) Math.pow((E1 - nf),2) / (double) nf ;
         }
 
 
