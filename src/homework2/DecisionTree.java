@@ -93,6 +93,7 @@ public class DecisionTree extends Classifier {
     private Double findMaxFreqClassValue(Instances dataSet) {
 
 //        System.out.println("checking highest freq. of class value");
+
         //if only one attribute remains - we shall take the y that has is the majority of the Ys
         //find most common Y
         int[] classValueFreq = new int[dataSet.classAttribute().numValues()]; //in our cases 2 values
@@ -136,7 +137,6 @@ public class DecisionTree extends Classifier {
             return currNode;
         }
 
-
         // DONT STOP !
 
         //neither stopping conditions have been met - commence splitting process by going over all attributes
@@ -161,6 +161,17 @@ public class DecisionTree extends Classifier {
             }
         }
 
+        //in case all instances share the same attribute values but not the same class value - return the max freq.class
+        boolean allZeros = true;
+        for(int q = 0 ; q < informationGain.length ; q++){
+            if(informationGain[q]!=0.0){
+                allZeros = false;
+            }
+        }
+        if(allZeros) {
+            currNode.setReturnValue(findMaxFreqClassValue(trainingData));
+            return currNode;
+        }
         //the best information gain has been chosen - we can now create the
         // children nodes and recursively continue the process.
         // in order to avoid repeating classification using the attribute - we remove it from the list
@@ -181,11 +192,10 @@ public class DecisionTree extends Classifier {
 
             //call the tree growing process recursively, removing the current feature from the possible attribute set.
             if(splitData[z].numInstances()!=0) {
-
+                //create another child node (and its recursive branch)
                 Node childNode = growTree(splitData[z], newAtt);
 
                 //set child node attribute value (as will be required when classifying)
-                //// TODO: 06/04/2016 check valid 
                 childNode.setAttributeValue(splitData[z].instance(0).value(maxIGattIndex));
 
                 //afer growing has been completed - attach each new node to its parent and set it as

@@ -1,4 +1,4 @@
-The average train error of the decision tree is 0.0
-The average test error of the decision tree is 0.3617021276595745
-The average train error of the decision tree with pruning is 0.3617021276595745
-The average test error of the decision tree with pruning is 0.3617021276595745
+The average train error of the decision tree is 0.03404255319148936
+The average test error of the decision tree is 0.42
+The average train error of the decision tree with pruning is 0.03404255319148936
+The average test error of the decision tree with pruning is 0.42
